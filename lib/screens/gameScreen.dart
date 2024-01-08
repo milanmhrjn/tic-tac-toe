@@ -23,6 +23,9 @@ class _gameScreenState extends State<gameScreen> {
     '',
   ];
   String result = '';
+  int oScore = 0;
+  int xScore = 0;
+  int filledBoxes = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,50 @@ class _gameScreenState extends State<gameScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Expanded(flex: 1, child: Text("Score Board")),
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "Player X",
+                                style: GoogleFonts.lato(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                xScore.toString(),
+                                style: GoogleFonts.lato(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Player O",
+                                style: GoogleFonts.lato(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                oScore.toString(),
+                                style: GoogleFonts.lato(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ]),
+                  )),
               Expanded(
                   flex: 3,
                   child: GridView.builder(
@@ -91,6 +137,7 @@ class _gameScreenState extends State<gameScreen> {
         display[0] != "") {
       setState(() {
         result = 'Player ' + display[0] + ' wins';
+        updateScore(display[0]);
       });
     }
 
@@ -100,6 +147,7 @@ class _gameScreenState extends State<gameScreen> {
         display[3] != "") {
       setState(() {
         result = 'Player ' + display[3] + ' wins';
+        updateScore(display[3]);
       });
     }
     //check third row
@@ -107,7 +155,8 @@ class _gameScreenState extends State<gameScreen> {
         display[6] == display[8] &&
         display[6] != "") {
       setState(() {
-        result = 'Player ' + display[3] + ' wins';
+        result = 'Player ' + display[6] + ' wins';
+        updateScore(display[6]);
       });
     }
     //check first column
@@ -116,6 +165,7 @@ class _gameScreenState extends State<gameScreen> {
         display[0] != "") {
       setState(() {
         result = 'Player ' + display[0] + ' wins';
+        updateScore(display[0]);
       });
     }
     //check second column
@@ -124,6 +174,7 @@ class _gameScreenState extends State<gameScreen> {
         display[1] != "") {
       setState(() {
         result = 'Player ' + display[1] + ' wins';
+        updateScore(display[1]);
       });
     }
     //check third column
@@ -132,6 +183,7 @@ class _gameScreenState extends State<gameScreen> {
         display[2] != "") {
       setState(() {
         result = 'Player ' + display[2] + ' wins';
+        updateScore(display[2]);
       });
     }
     //check first diagonal
@@ -140,6 +192,7 @@ class _gameScreenState extends State<gameScreen> {
         display[0] != "") {
       setState(() {
         result = 'Player ' + display[0] + ' wins';
+        updateScore(display[0]);
       });
     }
     //check second diagonal
@@ -148,7 +201,16 @@ class _gameScreenState extends State<gameScreen> {
         display[2] != "") {
       setState(() {
         result = 'Player ' + display[2] + ' wins';
+        updateScore(display[2]);
       });
+    }
+  }
+
+  void updateScore(String winner) {
+    if (winner == "X") {
+      xScore++;
+    } else if (winner == "O") {
+      oScore++;
     }
   }
 }
