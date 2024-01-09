@@ -26,6 +26,7 @@ class _gameScreenState extends State<gameScreen> {
   int oScore = 0;
   int xScore = 0;
   int filledBoxes = 0;
+  bool winnerFound = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +123,7 @@ class _gameScreenState extends State<gameScreen> {
     setState(() {
       if (xTurn && display[index] == '') {
         display[index] = 'X';
+        filledBoxes++;
       } else if (!xTurn && display[index] == "") {
         display[index] = 'O';
       }
@@ -197,11 +199,16 @@ class _gameScreenState extends State<gameScreen> {
     }
     //check second diagonal
     if (display[2] == display[4] &&
-        display[2] == display[7] &&
+        display[2] == display[6] &&
         display[2] != "") {
       setState(() {
         result = 'Player ' + display[2] + ' wins';
         updateScore(display[2]);
+      });
+    }
+    if (!winnerFound && filledBoxes == 9) {
+      setState(() {
+        result = 'Nobody Wins';
       });
     }
   }
